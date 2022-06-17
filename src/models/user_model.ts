@@ -13,9 +13,7 @@ export class User {
   }
 
   find(id: string) {
-    const index: number = this.db.findIndex(
-      (dbUser: { id: string }) => dbUser.id === id
-    );
+    const index: number = this.getIndex(id);
     return this.db[index];
   }
 
@@ -33,9 +31,7 @@ export class User {
   }
 
   update(id: string, params: paramsTuple) {
-    const index: number = this.db.findIndex(
-      (dbUser: { id: string }) => dbUser.id === id
-    );
+    const index: number = this.getIndex(id);
     const [username, age, hobbies] = params;
     this.db[index].username = username;
     this.db[index].age = age;
@@ -44,9 +40,11 @@ export class User {
   }
 
   destroy(id: string) {
-    const index: number = this.db.findIndex(
-      (dbUser: { id: string }) => dbUser.id === id
-    );
+    const index: number = this.getIndex(id);
     delete this.db[index];
+  }
+
+  private getIndex(id: string) {
+    return this.db.findIndex((dbUser: { id: string }) => dbUser.id === id);
   }
 }
