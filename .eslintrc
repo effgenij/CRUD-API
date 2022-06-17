@@ -8,6 +8,9 @@
     "plugin:import/typescript",
     "prettier"
   ],
+  "plugins":[
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "project": "./tsconfig.json"
