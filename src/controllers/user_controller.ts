@@ -1,7 +1,7 @@
-import { UserDB } from "../models/user_model";
+import UserDB from '../models/user_model';
 
-export class Controller {
-    constructor(private userDB: UserDB){
-        this.userDB = userDB;
-    }
+export default class Controller {
+  constructor(private userDB: UserDB) {
+    this.userDB = userDB;
+  }
 }

@@ -1,7 +1,7 @@
-import { IUser, paramsTuple } from "../helpers/ts_helper";
-import { v4 as createUuid } from "uuid";
+import { v4 as createUuid } from 'uuid';
+import { IUser, paramsTuple } from '../helpers/ts_helper';
 
-export class UserDB {
+export default class UserDB {
   db: IUser[];
 
   constructor() {
