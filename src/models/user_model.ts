@@ -1,23 +1,23 @@
 import { IUser, paramsTuple } from "../helpers/ts_helper";
 import { v4 as createUuid } from "uuid";
 
-export class User {
+export class UserDB {
   db: IUser[];
 
   constructor() {
     this.db = [];
   }
 
-  all() {
+  allUsers() {
     return this.db;
   }
 
-  find(id: string) {
+  findUser(id: string) {
     const index: number = this.getIndex(id);
     return this.db[index];
   }
 
-  create(params: paramsTuple) {
+  createUser(params: paramsTuple) {
     const [username, age, hobbies] = params;
     const id = createUuid();
     const newUser: IUser = {
@@ -30,7 +30,7 @@ export class User {
     return newUser;
   }
 
-  update(id: string, params: paramsTuple) {
+  updateUser(id: string, params: paramsTuple) {
     const index: number = this.getIndex(id);
     const [username, age, hobbies] = params;
     this.db[index].username = username;
@@ -39,7 +39,7 @@ export class User {
     return this.db[index];
   }
 
-  destroy(id: string) {
+  destroyUser(id: string) {
     const index: number = this.getIndex(id);
     delete this.db[index];
   }
