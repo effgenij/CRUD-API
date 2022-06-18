@@ -1,5 +1,6 @@
 import http from 'http';
 import { getUsers, createUser } from './controllers/user_controller';
+import 'dotenv/config';
 
 const server = http.createServer((req, res)=> {
     if(req.url === '/api/users' && req.method === 'GET') {
