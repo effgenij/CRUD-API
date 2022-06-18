@@ -6,6 +6,8 @@ export interface IUser {
 }
 
 export type paramsTuple = [string, number, string[]];
+export type message = { message: string }
+export type responseValue = IUser | IUser[] | message;
 
 export enum Codes {
     ok = 200,

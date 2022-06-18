@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
-import { IUser, paramsTuple } from './types';
+import { IUser, paramsTuple, responseValue } from './types';
 
-function createResponse(res: ServerResponse, statusCode: number, value: any): void {
+function createResponse(res: ServerResponse, statusCode: number, value: responseValue): void {
     res.writeHead(statusCode, { 'Content-type': 'application/json' });
     res.end(JSON.stringify(value));
 }
