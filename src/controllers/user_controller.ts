@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import * as User from '../models/user_model';
 import { Messages, Codes } from '../helpers/types';
 import { parseParams, parseID, createResponse } from '../helpers/utils';
+import errorHelper from '../helpers/errors'
 
 async function getUsers(req: IncomingMessage, res: ServerResponse): Promise<void>{
   try{
@@ -27,9 +28,10 @@ async function findUser(req: IncomingMessage, res: ServerResponse): Promise<void
     const id = await parseID(req);
     const user = await User.find(id);
     createResponse(res, Codes.created, user);
-  } catch (error) {
-    createResponse(res, Codes.serverError, { message: 'server error' });   
-  }   
+  } catch (error: any) {
+    const errorParams = errorHelper(error.message)
+    createResponse(res, errorParams.code, { message: errorParams.message });  
+  }
 }
 
 async function updateUser(req: IncomingMessage, res: ServerResponse): Promise<void>{
@@ -38,9 +40,10 @@ async function updateUser(req: IncomingMessage, res: ServerResponse): Promise<vo
     const params = await parseParams(req);
     const user = await User.update(id, params);
     createResponse(res, Codes.ok, user);
-  } catch (error) {
-    createResponse(res, Codes.serverError, { message: 'server error' });   
-  }   
+  } catch (error: any) {
+    const errorParams = errorHelper(error.message)
+    createResponse(res, errorParams.code, { message: errorParams.message });  
+  }  
 }
 
 async function deleteUser(req: IncomingMessage, res: ServerResponse): Promise<void>{
@@ -48,9 +51,10 @@ async function deleteUser(req: IncomingMessage, res: ServerResponse): Promise<vo
     const id = await parseID(req);
     await User.destroy(id);
     createResponse(res, Codes.deleted, { message: 'user delted' });
-  } catch (error) {
-    createResponse(res, Codes.serverError, { message: 'server error' });   
-  }   
+  } catch (error: any) {
+    const errorParams = errorHelper(error.message)
+    createResponse(res, errorParams.code, { message: errorParams.message });  
+  } 
 }
 
 

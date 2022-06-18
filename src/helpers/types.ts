@@ -8,6 +8,10 @@ export interface IUser {
 export type paramsTuple = [string, number, string[]];
 export type message = { message: string }
 export type responseValue = IUser | IUser[] | message;
+export type codeMessageError = {
+    code: number;
+    message: string;
+}
 
 export enum Codes {
     ok = 200,
@@ -21,7 +25,7 @@ export enum Codes {
 export enum Messages {
     created = '',
     deleted = '',
-    badRequest = '',
-    notFound = '',
+    badRequest = 'Sended ID is not valid',
+    notFound = 'User with this ID not found in database',
     serverError = ''
 }
