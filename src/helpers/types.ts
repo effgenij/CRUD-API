@@ -7,7 +7,7 @@ export interface IUser {
 
 export type paramsTuple = [string, number, string[]];
 
-export enum StatusCodes {
+export enum Codes {
     ok = 200,
     created = 201,
     deleted = 204,
