@@ -47,7 +47,7 @@ async function deleteUser(req: IncomingMessage, res: ServerResponse): Promise<vo
   try {
     const id = await parseID(req);
     await User.destroy(id);
-    createResponse(res, Codes.created, { message: 'user delted' });
+    createResponse(res, Codes.deleted, { message: 'user delted' });
   } catch (error) {
     createResponse(res, Codes.serverError, { message: 'server error' });   
   }   
