@@ -2,7 +2,8 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import * as User from '../models/user_model';
 import { Messages, Codes } from '../helpers/types';
 import { parseParams, parseID, createResponse } from '../helpers/utils';
-import errorHelper from '../helpers/errors'
+import errorHelper from '../helpers/errors';
+
 
 async function getUsers(req: IncomingMessage, res: ServerResponse): Promise<void>{
   try{
@@ -57,6 +58,10 @@ async function deleteUser(req: IncomingMessage, res: ServerResponse): Promise<vo
   } 
 }
 
+function sendBadRequest(res: ServerResponse): void {
+  createResponse(res, Codes.badRequest, { message: Messages.urlError });
+}
 
 
-export { getUsers, createUser, findUser, updateUser, deleteUser };
+
+export { getUsers, createUser, findUser, updateUser, deleteUser, sendBadRequest };

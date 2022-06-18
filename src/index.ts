@@ -1,8 +1,13 @@
 import http from 'http';
-import { getUsers, createUser } from './controllers/user_controller';
+import { getUsers, createUser, sendBadRequest } from './controllers/user_controller';
 import 'dotenv/config';
+import { urlNotValid } from './helpers/utils';
 
 const server = http.createServer((req, res)=> {
+    if (urlNotValid(req.url)) {
+        sendBadRequest(res);
+        return;
+    }
     if(req.url === '/api/users' && req.method === 'GET') {
         getUsers(req, res);
     } else if(req.url === '/api/users' && req.method === 'POST') {

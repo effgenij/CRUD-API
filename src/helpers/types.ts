@@ -23,9 +23,10 @@ export enum Codes {
 }
 
 export enum Messages {
-    created = '',
-    deleted = '',
+    created = 'User created succefully',
+    deleted = 'User deleted succefully',
     badRequest = 'Sended ID is not valid',
     notFound = 'User with this ID not found in database',
-    serverError = ''
+    serverError = 'Internal server error',
+    urlError = 'Path entered incorrectly'
 }
