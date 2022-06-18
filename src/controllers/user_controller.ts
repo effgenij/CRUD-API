@@ -1,6 +1,7 @@
 import * as User from '../models/user_model';
 import type { IncomingMessage, ServerResponse } from 'http';
-import { Messages, Codes, IUser, paramsTuple } from '../helpers/types';
+import { Messages, Codes } from '../helpers/types';
+import { parseParams, parseID, createResponse } from '../helpers/utils'
 
 async function getUsers(req: IncomingMessage, res: ServerResponse): Promise<void>{
   try{
@@ -24,43 +25,6 @@ async function createUser(req: IncomingMessage, res: ServerResponse): Promise<vo
     
 }
 
-function createResponse(res: ServerResponse, statusCode: number, value: any ): void{
-    res.writeHead(statusCode, { "Content-type": "application/json" });
-    res.end(JSON.stringify(value)); 
-}
 
-function parseRequest (req: IncomingMessage): Promise<IUser> {
-    return new Promise((resolve, reject) => {
-        try {
-            let body = '';
-            req.on('data', (chunk) => {
-              body += chunk.toString();
-            });
-            req.on('end', async () => {
-              resolve(JSON.parse(body));
-            });
-          } catch (error) {
-            throw new Error();
-          }
-    });
-  }
-
-  async function parseID (req: IncomingMessage): Promise<string> {
-    try{
-      const body = await parseRequest(req);
-      return body.id;
-    } catch (error) {
-        throw new Error();
-    }
-  }
-
-  async function parseParams (req: IncomingMessage):Promise<paramsTuple> {
-    try{
-      const body = await parseRequest(req);
-      return [body.username, body.age, body.hobbies];
-    } catch (error) {
-        throw new Error();
-    }
-  }
 
 export {getUsers, createUser};
