@@ -1,50 +1,53 @@
 import { v4 as createUuid } from 'uuid';
-import { IUser, paramsTuple } from '../helpers/ts_helper';
+import { IUser, paramsTuple } from '../helpers/types';
+import { DB, getIndex } from '../db/db';
 
-export default class UserDB {
-  db: IUser[];
+function allUsers(): Promise<IUser[]> {
+  return new Promise( (resolve) => {
+    resolve(DB);
+  });
+}
 
-  constructor() {
-    this.db = [];
-  }
+function findUser(id: string): Promise<IUser> {
+  return new Promise((resolve, reject) => {
+    const index: number = getIndex(id);
+    resolve(DB[index]);
+  });
+}
 
-  allUsers() {
-    return this.db;
-  }
-
-  findUser(id: string) {
-    const index: number = this.getIndex(id);
-    return this.db[index];
-  }
-
-  createUser(params: paramsTuple) {
+function createUser(params: paramsTuple): Promise<IUser> {
+  return new Promise((resolve, reject) => {
     const [username, age, hobbies] = params;
     const id = createUuid();
     const newUser: IUser = {
-      id,
-      username,
-      age,
-      hobbies,
-    };
-    this.db.push(newUser);
-    return newUser;
+        id,
+        username,
+        age,
+        hobbies,
+      };
+    DB.push(newUser);
+  resolve(newUser);
+  });
+  
   }
 
-  updateUser(id: string, params: paramsTuple) {
-    const index: number = this.getIndex(id);
+function updateUser(id: string, params: paramsTuple): Promise<IUser> {
+  return new Promise((resolve, reject) => {
+    const index: number = getIndex(id);
     const [username, age, hobbies] = params;
-    this.db[index].username = username;
-    this.db[index].age = age;
-    this.db[index].hobbies = hobbies;
-    return this.db[index];
+    DB[index].username = username;
+    DB[index].age = age;
+    DB[index].hobbies = hobbies;
+    resolve(DB[index]);
+  });
   }
 
-  destroyUser(id: string) {
-    const index: number = this.getIndex(id);
-    delete this.db[index];
+function destroyUser(id: string): Promise<void> {
+   return new Promise((resolve, reject) => {
+    const index: number = getIndex(id);
+    delete DB[index];
+    resolve();
+   });
   }
 
-  private getIndex(id: string) {
-    return this.db.findIndex((dbUser: { id: string }) => dbUser.id === id);
-  }
-}
+export { allUsers, findUser, createUser, updateUser, destroyUser };
