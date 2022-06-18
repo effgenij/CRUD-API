@@ -2,20 +2,20 @@ import { v4 as createUuid } from 'uuid';
 import { IUser, paramsTuple } from '../helpers/types';
 import { DB, getIndex } from '../db/db';
 
-function allUsers(): Promise<IUser[]> {
+function all(): Promise<IUser[]> {
   return new Promise( (resolve) => {
     resolve(DB);
   });
 }
 
-function findUser(id: string): Promise<IUser> {
+function find(id: string): Promise<IUser> {
   return new Promise((resolve, reject) => {
     const index: number = getIndex(id);
     resolve(DB[index]);
   });
 }
 
-function createUser(params: paramsTuple): Promise<IUser> {
+function create(params: paramsTuple): Promise<IUser> {
   return new Promise((resolve, reject) => {
     const [username, age, hobbies] = params;
     const id = createUuid();
@@ -31,7 +31,7 @@ function createUser(params: paramsTuple): Promise<IUser> {
   
   }
 
-function updateUser(id: string, params: paramsTuple): Promise<IUser> {
+function update(id: string, params: paramsTuple): Promise<IUser> {
   return new Promise((resolve, reject) => {
     const index: number = getIndex(id);
     const [username, age, hobbies] = params;
@@ -42,7 +42,7 @@ function updateUser(id: string, params: paramsTuple): Promise<IUser> {
   });
   }
 
-function destroyUser(id: string): Promise<void> {
+function destroy(id: string): Promise<void> {
    return new Promise((resolve, reject) => {
     const index: number = getIndex(id);
     delete DB[index];
@@ -50,4 +50,4 @@ function destroyUser(id: string): Promise<void> {
    });
   }
 
-export { allUsers, findUser, createUser, updateUser, destroyUser };
+export { all, find, create, update, destroy };
