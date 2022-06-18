@@ -1,15 +1,15 @@
-import * as User from '../models/user_model';
 import type { IncomingMessage, ServerResponse } from 'http';
+import * as User from '../models/user_model';
 import { Messages, Codes } from '../helpers/types';
-import { parseParams, parseID, createResponse } from '../helpers/utils'
+import { parseParams, parseID, createResponse } from '../helpers/utils';
 
 async function getUsers(req: IncomingMessage, res: ServerResponse): Promise<void>{
   try{
     const users = await User.all();
     createResponse(res, Codes.ok, users);
   } catch (error) {
-    createResponse(res, Codes.serverError, { message: "server error" });
-    return;
+    createResponse(res, Codes.serverError, { message: 'server error' });
+    
   }
 }
 
@@ -19,12 +19,12 @@ async function createUser(req: IncomingMessage, res: ServerResponse): Promise<vo
         const user = await User.create(params);
         createResponse(res, Codes.ok, user);
       } catch (error) {
-        createResponse(res, Codes.serverError, { message: "server error" });
-        return;
+        createResponse(res, Codes.serverError, { message: 'server error' });
+        
       }
     
 }
 
 
 
-export {getUsers, createUser};
+export { getUsers, createUser };
