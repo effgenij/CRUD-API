@@ -16,7 +16,8 @@ function parseRequest(req: IncomingMessage): Promise<IUser> {
                 body += chunk.toString();
             });
             req.on('end', async () => {
-                resolve(JSON.parse(body));
+                const result = body ? JSON.parse(body) : {}; 
+                resolve(result);
             });
         } catch (error) {
             throw new Error();
@@ -29,11 +30,16 @@ function uuidValidateV4(uuid: string): boolean {
 
 async function parseID(req: IncomingMessage): Promise<string> {
     try {
-        const body = await parseRequest(req);
-        if (!uuidValidateV4(body.id)) {
-            throw new Error('ID not valid');
+        const reqUrl = req.url;
+        let id;
+        if(reqUrl){
+          id = reqUrl.substring(11, reqUrl.length);
+          if (uuidValidateV4(id)) {
+            return id;
+          }
         }
-        return body.id;
+    
+        throw new Error();
     } catch (error) {
         throw new Error();
     }
