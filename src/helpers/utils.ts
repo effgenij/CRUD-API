@@ -48,15 +48,5 @@ async function parseParams(req: IncomingMessage): Promise<paramsTuple> {
     }
 }
 
-function urlNotValid (url: string | undefined): boolean {
-    // regex to valid 'api/users' and 'api/users/${userId}' urls
-    const reg = /api\/users\/(\w*-)*\w*/;
-    if(url === undefined || url.match(reg)) {
-        return false;
-    }
-    return true;
-}
 
-
-
-export { parseParams, parseID, createResponse, uuidValidateV4, urlNotValid };
+export { parseParams, parseID, createResponse, uuidValidateV4 };

@@ -58,10 +58,4 @@ async function deleteUser(req: IncomingMessage, res: ServerResponse): Promise<vo
   } 
 }
 
-function sendBadRequest(res: ServerResponse): void {
-  createResponse(res, Codes.badRequest, { message: Messages.urlError });
-}
-
-
-
-export { getUsers, createUser, findUser, updateUser, deleteUser, sendBadRequest };
+export { getUsers, createUser, findUser, updateUser, deleteUser };
