@@ -34,7 +34,7 @@ If you use https
 
 #### Change port
 
-You can change the port ib ```.env``` file
+You can change the port in ```.env``` file
 
 #### Endpoints
 
