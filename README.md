@@ -45,11 +45,12 @@ GET ```api/user/${userId}``` - return user with userID
 POST ```api/user/``` - create user
 
 body format for POST request:
-```{
-    "username": "test",
+
+```
+   {"username": "test",
     "age": 12,
-    "hobbies": ["one", "two"]
-}```
+    "hobbies": ["one", "two"]}
+```
 
 PUT ```api/user/${userId}``` - update user
 
